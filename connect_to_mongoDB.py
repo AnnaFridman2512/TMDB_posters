@@ -1,5 +1,5 @@
 import pymongo
-from passwords import mongo_db_password as mpw
+from passwords_and_keys import mongo_db_password as mpw
 
 username = "user"
 password = mpw

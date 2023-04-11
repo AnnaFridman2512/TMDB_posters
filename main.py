@@ -1,4 +1,4 @@
-from passwords import mongo_db_password as mpw
+from passwords_and_keys import mongo_db_password as mpw
 from connect_to_mongoDB import db, collection, username
 
 # check if user exists
