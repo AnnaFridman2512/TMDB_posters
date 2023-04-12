@@ -37,19 +37,21 @@ def create_mongo_user():
 
 
 def find_poster_in_mongo(movie_title):
-    try:
-        query = {"movie_title": movie_title}
-        results = collection.find(query)
-        return list(results)
-    except Exception as e:
-        print(f"Error finding poster in MongoDB: {e}")
-        return []
+    create_mongo_user()
+    movie_title = movie_title.lower()
+    query = {"movie_title": movie_title}
+    results = collection.find(query)
+    results = list(results)
+    if len(results) > 0:
+        first_result = list(results)[0]
+        return first_result
+
 
 
 #document = {'movie_title': 'Avatar'}
 #collection.insert_one(document)
 
-#find_poster_in_mongo("Avatar")
+#find_poster_in_mongo("bla")
 
 # define a function to save the image to MongoDB
 def save_poster_to_mongo(movie):
