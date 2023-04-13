@@ -13,6 +13,7 @@ uri = f'mongodb://{username}:{mpw}@localhost:27017/TMDB_posters'
 
 # connect to the database using the URI
 client = pymongo.MongoClient(uri)
+#client = pymongo.MongoClient("mongodb://localhost:27017/")
 
 # access a collection
 db = client["TMDB_posters"]
@@ -22,7 +23,7 @@ def create_mongo_user():
     # check if user exists
     users_dict = db.command("usersInfo")
     users_list = users_dict['users']
-    #print(users_list)
+    print(users_list)
 
     if len(users_list) > 0:
         for user_dict in users_list:
@@ -71,13 +72,13 @@ def save_poster_to_mongo(movie):
 
 
 
-"""movie = {'adult': False, 'backdrop_path': '/vL5LR6WdxWPjLPFRLe133jXWsh5.jpg', 'genre_ids': [28, 12, 14, 878],
+movie = {'adult': False, 'backdrop_path': '/vL5LR6WdxWPjLPFRLe133jXWsh5.jpg', 'genre_ids': [28, 12, 14, 878],
          'id': 19995, 'original_language': 'en', 'original_title': 'ANNA',
          'overview': 'In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization.',
          'popularity': 386.424, 'poster_path': '/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg', 'release_date': '2009-12-15',
-         'title': 'Avatar', 'video': False, 'vote_average': 7.569, 'vote_count': 28849}"""
+         'title': 'Avatar', 'video': False, 'vote_average': 7.569, 'vote_count': 28849}
 
-#save_poster_to_mongo(movie)
+save_poster_to_mongo(movie)
 
 def delete_poster_from_mongo(movie_title):
     create_mongo_user()
