@@ -55,6 +55,7 @@ def find_poster_in_mongo(movie_title):
 
 # define a function to save the image to MongoDB
 def save_poster_to_mongo(movie):
+    create_mongo_user()
     # download the image from poster_path
     response = requests.get(f"https://image.tmdb.org/t/p/original/{movie['poster_path']}")
     image_binary = io.BytesIO(response.content).getvalue()
@@ -79,5 +80,6 @@ def save_poster_to_mongo(movie):
 #save_poster_to_mongo(movie)
 
 def delete_poster_from_mongo(movie_title):
+    create_mongo_user()
     collection.delete_one({'movie_title': movie_title})
     return f'Poster {movie_title} was deleted'
