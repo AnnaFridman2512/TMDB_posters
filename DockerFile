@@ -1,0 +1,15 @@
+# Use an official Python runtime as a parent image
+# set the working directory
+WORKDIR /app
+
+# copy the requirements file
+COPY requirements.txt .
+
+# install the requirements
+RUN pip install -r requirements.txt
+
+# copy the source code
+COPY app.py .
+
+# set the command to run the Python script
+CMD [ "python", "./app.py" ]
