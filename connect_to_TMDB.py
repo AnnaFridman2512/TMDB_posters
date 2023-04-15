@@ -31,11 +31,11 @@ def find_poster(movie_title):
                     #movie_titles.append(title)
             #print(total_movies[0])
             #print(movie_titles)
-            movie = total_movies[0]
-            movie_title = movie["title"]
+            movie_dict = total_movies[0]
+            movie_title = movie_dict["title"]
             base_url = "https://image.tmdb.org/t/p/original"
-            poster_url = base_url + movie['poster_path']
-            return [movie_title, poster_url]
+            poster_url = base_url + movie_dict['poster_path']
+            return [movie_title, poster_url, movie_dict]
     else:
         return poster_from_mongoDB
 
