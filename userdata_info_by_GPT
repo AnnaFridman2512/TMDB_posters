@@ -1,0 +1,21 @@
+Sure! Here are the steps you can follow to deploy a Dockerized Mongo-Flask app on your EC2 instance using a user-data file:
+
+Launch a new EC2 instance on your AWS console and choose an Amazon Machine Image (AMI) that supports Docker (such as Amazon Linux 2).
+
+In the "Configure Instance Details" page, scroll down to "Advanced Details" and paste the following script in the "User data" field:
+
+bash.
+1. Replace <your_repo_url> with the URL of your Git repository where your Flask app and Dockerfile are located.
+
+2.Replace <your_repo_folder> with the folder name of your Git repository where your Flask app and Dockerfile are located.
+
+3.Replace <your_docker_image_name> with a name of your choice for the Docker image you will create.
+
+4.Save the user-data file and launch the EC2 instance.
+
+5.Once the instance is launched, SSH into the instance using your key pair and run the following command to check if the Docker container is running:
+
+6.Copy code:
+sudo docker ps
+7.If the container is running, open your browser and go to http://<your_ec2_public_ip>:5000 to access your Flask app.
+That's it! These commands should install Docker and other required packages on your EC2 instance, clone your Git repository, build a Docker image, and run a Docker container with your Flask app.
