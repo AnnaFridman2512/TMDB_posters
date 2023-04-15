@@ -1,0 +1,30 @@
+git # Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+.DS_Store
+.env
+.venv
+__pycache__
+venv
+idea
+
+# Log files
+*.log
+
+# Compiled Python files
+*.pyc
+
+# Package files
+*.egg-info/
+dist/
+
+# Dependency directories
+/.pytest_cache/
+/.pytest_cache/v
+/.mypy_cache/
+
+
+passwords
