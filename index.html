@@ -2,69 +2,70 @@
 <html>
   <head>
     <title>Find a Movie</title>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
      <style>
-       .findamovie {
-      background-color: #D6EEEE;
-      color: black;
-      border:2px solid black;
-      margin:200px
-      padding:200px;
-      width:1100px;
-      height:400px;
-      font-size:50px;
-      float:center;
-      border-radius: 5px;
-       }
-      .div {
-      border:4px solid black;
-      float:center;
-      text-align:center;
-      width:1100px;
-      height:400px;
-      background-color:cadetblue;
-      margin:30px;
-      padding:50px;
-      border-radius: 5px;
-      }
-      .movietitle {
-      position:relative;
-      color:#D6EEEE;
-      -webkit-text-stroke: 0.5px #383d52;
-      font-size:2vw;
-      }
 
-      .typetext {
-    width: 150px;
-    height: 20px;
-    margin: 3px;
-    border-radius: 5px;
-    border-color: #999999;
-    text-align: center;
-}
-.typebutton {
-    width: 75px;
-    height: 32px;
-    margin: 1px;
-    border-radius: 5px;
-    background-color: #999999;
-    border-color: #999999;
-    color: #ffffff;
-    cursor: pointer;
-}
-    </style>
-  </head>
+       .findamovie {
+        background-color: #D6EEEE;
+        color: black;
+        border:2px solid black;
+        margin:200px
+        padding:200px;
+        width:1100px;
+        height:400px;
+        font-size:50px;
+        float:center;
+        border-radius: 5px;
+        }
+
+       .div {
+        border:4px solid black;
+        float:center;
+        text-align:center;
+        width:1100px;
+        height:400px;
+        background-color:cadetblue;
+        margin:30px;
+        padding:50px;
+        border-radius: 5px;
+        }
+
+       .movietitle {
+        position:relative;
+        color:#D6EEEE;
+        -webkit-text-stroke: 0.5px #383d52;
+        font-size:2vw;
+        }
+
+       .typetext {
+        width: 150px;
+        height: 20px;
+        margin: 3px;
+        border-radius: 5px;
+        border-color: #999999;
+        text-align: center;
+        }
+       .typebutton {
+        width: 75px;
+        height: 32px;
+        margin: 1px;
+        border-radius: 5px;
+        background-color: #999999;
+        border-color: #999999;
+        color: #ffffff;
+        cursor: pointer;
+        }
+      </style>
+    </head>
   <body>
-  <div class="div">
+   <div class="div">
     <div class="findamovie">
       <h3>Find a Movie</h3>
     <form action="/find_movie" method="post">
       <span class="movietitle" for="movie_title">Movie Title:</span>
       <input class="typetext" type="text" id="movie_title" name="movie_title" required>
       <button class="typebutton" type="submit">Search</button>
-    </form>
+      </form>
+      </div>
     </div>
-  </div>
   </body>
 </html>
