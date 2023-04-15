@@ -1,11 +1,17 @@
 import base64
-from flask import Flask, request, render_template, make_response
+from flask import Flask, request, render_template, make_response, jsonify
+from flask_httpauth import HTTPBasicAuth
 from connect_to_TMDB import find_poster
-from connect_to_mongoDB import save_poster_to_mongo
+from connect_to_mongoDB import save_poster_to_mongo, delete_poster_from_mongo, get_all_posters
+from passwords_and_keys import username, mongo_db_password as password
 
 app = Flask(__name__)
+auth = HTTPBasicAuth()
 
-
+@auth.verify_password
+def verify_password(user, psw):
+    # Check the username and password against your MongoDB user
+    return user == username and psw == password
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -26,7 +32,23 @@ def find_movie():
     response.headers['Content-Type'] = 'text/html'
     return response
 
+@app.route('/posters')
+@auth.login_required
+def get_all_posters_route():
+    posters = get_all_posters()
+    return jsonify(posters)
 
+
+
+@app.route('/delete_poster', methods=['POST'])
+def delete_poster():
+    title = request.form['movie_title']
+    deleted = delete_poster_from_mongo(title)
+    if deleted:
+        return '<h1>Poster deleted from MongoDB</h1>'
+    else:
+        return '<h1>Error: Poster not found in MongoDB</h1>'
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
+

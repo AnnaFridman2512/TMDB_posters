@@ -1,11 +1,11 @@
+import base64
 import pymongo
 import requests
 import io
-from PIL import Image
-from passwords_and_keys import mongo_db_password as mpw
+from passwords_and_keys import mongo_db_password, username
 
-username = "user"
-password = mpw
+
+password = mongo_db_password
 
 # build the connection URI
 uri = f'mongodb://localhost:27017/TMDB_posters'
@@ -28,15 +28,15 @@ def create_mongo_user():
             user_list_tup = user_dict.items()
             for user_data in user_list_tup:
                 if user_data[0] == username:
-                    return
+                    print(f'User {username} already exists')
     else:
         # Create user with read/write permissions to 'TMDB_posters' database
-        db.command("createUser", username, pwd=mpw, roles=[{"role": "readWrite", "db": "TMDB_posters"}])
+        db.command("createUser", username, pwd=password, roles=[{"role": "readWrite", "db": "TMDB_posters"}])
         print(f'User {username} created successfully')
 
         # Update the URI with the new credentials
-        updated_uri = f'mongodb://{username}:{mpw}@localhost:27017/TMDB_posters'
-        return updated_uri
+    updated_uri = f'mongodb://{username}:{password}@localhost:27017/TMDB_posters'
+    return updated_uri
 
 
 #create_mongo_user()
@@ -46,8 +46,23 @@ def delete_mongo_user(username):
 
 #delete_mongo_user('user')
 
+def get_all_posters():
+    create_mongo_user()
+    posters = list(collection.find())
+    posters_dict = {}
+    for poster in posters:
+        poster_dict = {
+            "movie_title": poster["movie_title"],
+            "TMDB_id": poster["TMDB_id"],
+            "poster": base64.b64encode(poster["poster"]).decode('utf-8')
+        }
+        posters_dict.update({poster["movie_title"]: poster_dict})
+
+    #print(posters_dict)
+    return posters_dict
 
 
+#get_all_posters()
 def find_poster_in_mongo(movie_title):
     create_mongo_user()
     movie_title = movie_title.lower()
@@ -58,9 +73,6 @@ def find_poster_in_mongo(movie_title):
         first_result = list(results)[0]
         return first_result
 
-
-# document = {'movie_title': 'Avatar'}
-# collection.insert_one(document)
 
 # find_poster_in_mongo("bla")
 
