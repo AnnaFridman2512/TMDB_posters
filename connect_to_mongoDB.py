@@ -102,7 +102,9 @@ def save_poster_to_mongo(movie):
 save_poster_to_mongo(movie)"""
 
 
-def delete_poster_from_mongo(movie_title):
+def delete_poster_from_mongo(title):
     create_mongo_user()
-    collection.delete_one({'movie_title': movie_title})
-    return f'Poster {movie_title} was deleted'
+    collection.delete_one({"movie_title": title})
+    return f'Movie {title} was deleted from mongoDB'
+
+#delete_poster_from_mongo("scream")

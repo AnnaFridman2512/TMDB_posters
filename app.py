@@ -40,14 +40,13 @@ def get_all_posters_route():
 
 
 
-@app.route('/delete_poster', methods=['POST'])
+@app.route('/delete_poster', methods=['DELETE'])
+@auth.login_required
 def delete_poster():
-    title = request.form['movie_title']
-    deleted = delete_poster_from_mongo(title)
-    if deleted:
-        return '<h1>Poster deleted from MongoDB</h1>'
-    else:
-        return '<h1>Error: Poster not found in MongoDB</h1>'
+    data = request.get_json()
+    title = data.get('movie_title')
+    delete_poster_from_mongo(title)
+    return f'Movie {title} was deleted'
 
 if __name__ == '__main__':
     app.run(debug=True)
