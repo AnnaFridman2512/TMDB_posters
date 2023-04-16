@@ -2,7 +2,8 @@ import base64
 from flask import Flask, request, render_template, make_response, jsonify
 from flask_httpauth import HTTPBasicAuth
 from connect_to_TMDB import find_poster
-from connect_to_mongoDB import save_poster_to_mongo, delete_poster_from_mongo, get_all_posters
+from connect_to_mongoDB import save_poster_to_mongo, delete_poster_from_mongo, get_all_posters, update_title, \
+    find_poster_in_mongo
 from passwords_and_keys import username, mongo_db_password as password
 
 app = Flask(__name__)
@@ -54,6 +55,17 @@ def save_poster():
     movie = request.get_json()
     save_poster_to_mongo(movie)
     return 'Poster saved to MongoDB!'
+
+@app.route('/update_title', methods=['PUT'])
+@auth.login_required
+def update_title_route():
+    cur_title = request.json['cur_title']
+    new_title = request.json['new_title']
+    update_title(cur_title, new_title)
+    return 'Title updated'
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -4,7 +4,6 @@ import requests
 import io
 from passwords_and_keys import mongo_db_password, username
 
-
 password = mongo_db_password
 
 # build the connection URI
@@ -39,12 +38,13 @@ def create_mongo_user():
     return updated_uri
 
 
-#create_mongo_user()
+# create_mongo_user()
 def delete_mongo_user(username):
     db.command("dropUser", username)
     print(f"User {username} has been deleted.")
 
-#delete_mongo_user('user')
+
+# delete_mongo_user('user')
 
 def get_all_posters():
     create_mongo_user()
@@ -58,11 +58,11 @@ def get_all_posters():
         }
         posters_dict.update({poster["movie_title"]: poster_dict})
 
-    #print(posters_dict)
+    # print(posters_dict)
     return posters_dict
 
 
-#get_all_posters()
+# get_all_posters()
 def find_poster_in_mongo(movie_title):
     create_mongo_user()
     movie_title = movie_title.lower()
@@ -107,4 +107,18 @@ def delete_poster_from_mongo(title):
     collection.delete_one({"movie_title": title})
     return f'Movie {title} was deleted from mongoDB'
 
-#delete_poster_from_mongo("scream")
+
+# delete_poster_from_mongo("scream")
+
+
+def update_title(cur_title, new_title):
+    poster = find_poster_in_mongo(cur_title)
+    if poster:
+        query = {"movie_title": cur_title.lower()}
+        new_values = {"$set": {"movie_title": new_title.lower()}}
+        collection.update_one(query, new_values)
+    else:
+        return f"Poster for movie {cur_title} not found in database"
+
+
+#update_title("anna", "avatar")
