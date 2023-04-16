@@ -48,6 +48,13 @@ def delete_poster():
     delete_poster_from_mongo(title)
     return f'Movie {title} was deleted'
 
+@app.route('/save_poster', methods=['POST'])
+@auth.login_required
+def save_poster():
+    movie = request.get_json()
+    save_poster_to_mongo(movie)
+    return 'Poster saved to MongoDB!'
+
 if __name__ == '__main__':
     app.run(debug=True)
 
