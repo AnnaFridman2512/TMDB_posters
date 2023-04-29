@@ -1,4 +1,5 @@
 import base64
+import os
 import pymongo
 import requests
 import io
@@ -6,17 +7,25 @@ from passwords_and_keys import mongo_db_password, username
 
 password = mongo_db_password
 
-# build the connection URI
-uri = f'mongodb://localhost:27017/TMDB_posters'
+# build the connection URI if on localhost:
+#uri = f'mongodb://localhost:27017/TMDB_posters'
 
 # connect to the database using the URI
-client = pymongo.MongoClient(uri)
+#client = pymongo.MongoClient(uri)
+
+#Use the following code to connect to the MongoDB container from your Flask app
+#get the MONGO_URI environment variable that we set in the Docker Compose file using os.environ.get()
+
+mongo_uri = os.environ.get('MONGO_URI')
+client = pymongo.MongoClient(mongo_uri)
+
+
 
 # access a collection
 db = client["TMDB_posters"]
 collection = db["posters"]
 
-
+"""
 def create_mongo_user():
     # Check if user exists
     users_dict = db.command("usersInfo")
@@ -36,7 +45,7 @@ def create_mongo_user():
         # Update the URI with the new credentials
     updated_uri = f'mongodb://{username}:{password}@localhost:27017/TMDB_posters'
     return updated_uri
-
+"""
 
 # create_mongo_user()
 def delete_mongo_user(username):
@@ -44,10 +53,10 @@ def delete_mongo_user(username):
     print(f"User {username} has been deleted.")
 
 
-# delete_mongo_user('user')
+#delete_mongo_user('user')
 
 def get_all_posters():
-    create_mongo_user()
+    #create_mongo_user()
     posters = list(collection.find())
     posters_dict = {}
     for poster in posters:
@@ -64,7 +73,7 @@ def get_all_posters():
 
 # get_all_posters()
 def find_poster_in_mongo(movie_title):
-    create_mongo_user()
+    #create_mongo_user()
     movie_title = movie_title.lower()
     query = {"movie_title": movie_title}
     results = collection.find(query)
@@ -78,7 +87,7 @@ def find_poster_in_mongo(movie_title):
 
 # define a function to save the image to MongoDB
 def save_poster_to_mongo(movie):
-    create_mongo_user()
+    #create_mongo_user()
     # download the image from poster_path
     response = requests.get(f"https://image.tmdb.org/t/p/original/{movie['poster_path']}")
     image_binary = io.BytesIO(response.content).getvalue()
@@ -103,7 +112,7 @@ save_poster_to_mongo(movie)"""
 
 
 def delete_poster_from_mongo(title):
-    create_mongo_user()
+    #create_mongo_user()
     collection.delete_one({"movie_title": title})
     return f'Movie {title} was deleted from mongoDB'
 

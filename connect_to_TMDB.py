@@ -1,7 +1,9 @@
 import requests
-from passwords_and_keys import api_key_to_TMDB as apk
+#from passwords_and_keys import api_key_to_TMDB as apk
 from connect_to_mongoDB import find_poster_in_mongo
 
+
+apk = input("Please enter your TMDb API key: ")
 def find_poster(movie_title):
     poster_from_mongoDB = find_poster_in_mongo(movie_title)
     if not poster_from_mongoDB:

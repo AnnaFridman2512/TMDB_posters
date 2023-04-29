@@ -2,8 +2,7 @@ import base64
 from flask import Flask, request, render_template, make_response, jsonify
 from flask_httpauth import HTTPBasicAuth
 from connect_to_TMDB import find_poster
-from connect_to_mongoDB import save_poster_to_mongo, delete_poster_from_mongo, get_all_posters, update_title, \
-    find_poster_in_mongo
+from connect_to_mongoDB import save_poster_to_mongo, delete_poster_from_mongo, get_all_posters, update_title
 from passwords_and_keys import username, mongo_db_password as password
 
 app = Flask(__name__)
@@ -68,5 +67,6 @@ def update_title_route():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
 
