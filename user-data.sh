@@ -11,6 +11,6 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 # Clone repository and start application
-git clone https://github.com/AnnaFridman2512/TMDB_posters.git /TMDB_posters
+git clone git@github.com:AnnaFridman2512/TMDB_posters.git /TMDB_posters
 cd /TMDB_posters
 docker-compose up -d
