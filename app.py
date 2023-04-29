@@ -46,7 +46,7 @@ def delete_poster():
     data = request.get_json()
     title = data.get('movie_title')
     delete_poster_from_mongo(title)
-    return f'Movie {title} was deleted'
+    return f'Movie was deleted'
 
 @app.route('/save_poster', methods=['POST'])
 @auth.login_required
