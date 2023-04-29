@@ -5,8 +5,8 @@ systemctl start docker
 systemctl enable docker
 usermod -a -G docker ec2-user
 
-mkdir /app
-cd /app
-curl -LJO https://raw.githubusercontent.com/AnnaFridman2512/TMDB_posters/main/docker-compose.yml
+yum install -y git
+git clone https://github.com/AnnaFridman2512/TMDB_posters.git
 
+cd TMDB_posters
 docker-compose up -d
