@@ -3,9 +3,9 @@ import os
 import pymongo
 import requests
 import io
-from passwords_and_keys import mongo_db_password, username
+#from passwords_and_keys import mongo_db_password, username
 
-password = mongo_db_password
+#password = mongo_db_password
 
 # build the connection URI if on localhost:
 #uri = f'mongodb://localhost:27017/TMDB_posters'
