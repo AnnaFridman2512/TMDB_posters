@@ -3,15 +3,15 @@ from flask import Flask, request, render_template, make_response, jsonify
 from flask_httpauth import HTTPBasicAuth
 from connect_to_TMDB import find_poster
 from connect_to_mongoDB import save_poster_to_mongo, delete_poster_from_mongo, get_all_posters, update_title
-from passwords_and_keys import username, mongo_db_password as password
+#from passwords_and_keys import username, mongo_db_password as password
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
 
-@auth.verify_password
-def verify_password(user, psw):
+#@auth.verify_password
+#def verify_password(user, psw):
     # Check the username and password against your MongoDB user
-    return user == username and psw == password
+    #return user == username and psw == password
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -33,7 +33,7 @@ def find_movie():
     return response
 
 @app.route('/posters')
-@auth.login_required
+#@auth.login_required
 def get_all_posters_route():
     posters = get_all_posters()
     return jsonify(posters)
@@ -41,7 +41,7 @@ def get_all_posters_route():
 
 
 @app.route('/delete_poster', methods=['DELETE'])
-@auth.login_required
+#@auth.login_required
 def delete_poster():
     data = request.get_json()
     title = data.get('movie_title')
@@ -49,14 +49,14 @@ def delete_poster():
     return 'Movie was deleted'
 
 @app.route('/save_poster', methods=['POST'])
-@auth.login_required
+#@auth.login_required
 def save_poster():
     movie = request.get_json()
     save_poster_to_mongo(movie)
     return 'Poster saved to MongoDB!'
 
 @app.route('/update_title', methods=['PUT'])
-@auth.login_required
+#@auth.login_required
 def update_title_route():
     cur_title = request.json['cur_title']
     new_title = request.json['new_title']
